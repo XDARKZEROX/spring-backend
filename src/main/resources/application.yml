@@ -1,0 +1,9 @@
+spring: 
+  datasource:
+    url: jdbc:mysql://localhost:3306/aquavida
+    username: root
+    password: mysql
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
