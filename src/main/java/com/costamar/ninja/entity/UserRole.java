@@ -20,7 +20,7 @@ public class UserRole {
 	private Integer userRoleId;
 	
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "username", nullable = false)
 	private User user;
 	

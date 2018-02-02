@@ -4,6 +4,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +21,7 @@ import com.costamar.ninja.model.ContactModel;
 import com.costamar.ninja.service.ContactService;
 
 @Controller
+//@PreAuthorize("permitAll()") SE PUEDE AGREGAR A NIVEL DE CLASE, permitall permite a todos.
 @RequestMapping("/contacts")
 public class ContactController {
 	
@@ -32,6 +36,8 @@ public class ContactController {
 		return "redirect:/contacts/showcontacts";
 	}
 	
+	//permite que el usuario logeado no pueda verlo dependiendo de su rol
+	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	@GetMapping("/contactform")
 	private String goToContactForm(@RequestParam(name="id",required=true) int id,
 			Model model){
@@ -62,6 +68,8 @@ public class ContactController {
 	@GetMapping("/showcontacts")
 	public ModelAndView showContacts(){
 		ModelAndView mav = new ModelAndView(ViewConstant.CONTACTS);
+		User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		mav.addObject("username", user.getUsername());
 		mav.addObject("contacts", contactService.listAll());
 		return mav;
 	}
