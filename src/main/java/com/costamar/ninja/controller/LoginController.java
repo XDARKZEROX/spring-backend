@@ -29,7 +29,6 @@ public class LoginController {
 	@GetMapping({"/loginsuccess", "/"})
 	public String loginCheck() {
 		LOG.info("METHOD: showLoginForm PARAMS: ");
-		LOG.info("redirect to login error" );
 		return "redirect:/contacts/showcontacts";
 	}
 	

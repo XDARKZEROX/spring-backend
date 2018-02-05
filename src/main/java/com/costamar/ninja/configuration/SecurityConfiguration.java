@@ -20,7 +20,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Qualifier("userService")
 	private UserDetailsService userService;
 	
-	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userService).passwordEncoder(new BCryptPasswordEncoder());
@@ -37,8 +36,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		.and()
 		.logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout")
 		.permitAll();
-		
-		
 	}
 
 }
