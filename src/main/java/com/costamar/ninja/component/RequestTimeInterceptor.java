@@ -33,18 +33,6 @@ public class RequestTimeInterceptor extends HandlerInterceptorAdapter{
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        long startTime = (long) request.getAttribute("startTime");
-        String url = request.getRequestURL().toString();
-        
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = "";
-        
-        if(null != auth && auth.isAuthenticated()){
-        	username = auth.getName();
-        }
-        
-        logRepository.save(new com.costamar.ninja.entity.Log(new Date(), auth.getDetails().toString(), username, url));
-        
-        LOG.info("URL to: '" + url  + "' in: '" + (System.currentTimeMillis() - startTime) + "'ms");
+
     }
 }

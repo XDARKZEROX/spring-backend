@@ -21,7 +21,7 @@ import com.costamar.ninja.model.ContactModel;
 import com.costamar.ninja.service.ContactService;
 
 @Controller
-//@PreAuthorize("permitAll()") SE PUEDE AGREGAR A NIVEL DE CLASE, permitall permite a todos.
+@PreAuthorize("permitAll()") //SE PUEDE AGREGAR A NIVEL DE CLASE, permitall permite a todos.
 @RequestMapping("/contacts")
 public class ContactController {
 	
