@@ -21,7 +21,6 @@ import com.costamar.ninja.model.ContactModel;
 import com.costamar.ninja.service.ContactService;
 
 @Controller
-@PreAuthorize("permitAll()") //SE PUEDE AGREGAR A NIVEL DE CLASE, permitall permite a todos.
 @RequestMapping("/contacts")
 public class ContactController {
 	
@@ -37,12 +36,11 @@ public class ContactController {
 	}
 	
 	//permite que el usuario logeado no pueda verlo dependiendo de su rol
-	@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+	//@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 	@GetMapping("/contactform")
 	private String goToContactForm(@RequestParam(name="id",required=true) int id,
 			Model model){
 		ContactModel contactModel = new ContactModel();
-		
 		if(id != 0){
 			contactModel = contactService.findContactByIdModel(id);
 		}
